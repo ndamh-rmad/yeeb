@@ -5,9 +5,9 @@
     "send_interval_minutes": 5,
     "caption_template": "سورة {surah_name} – القارئ: السديس",
     "image_source": "https://raw.githubusercontent.com/GovarJabbar/Quran-PNG/main/{surah_number}.png",
-    "audio_source_pattern": "https://verses.quran.com/AbdulrahmanAlSudais/mp3/{surah_number:03d}.mp3",
+    "audio_source_pattern": "https://archive.org/download/HaramainSudais/{surah_number:03d}.ogg",
     "commands": [
-        "/ارسل_الان",
-        "/احصائيات"
+        "/send_now",
+        "/stats"
     ]
 }
