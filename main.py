@@ -70,7 +70,7 @@ async def stats(update, context):
         f"📊 عدد السور المرسلة: {sent_count}\n📖 آخر سورة: {SURAHS[current_index-1]}\n⏱️ الوقت: {datetime.datetime.now().strftime('%H:%M:%S')}"
     )
 
-if __name__ == "__main__":
+async def main():
     logging.basicConfig(level=logging.INFO)
     app = ApplicationBuilder().token(TOKEN).build()
 
@@ -81,4 +81,7 @@ if __name__ == "__main__":
     scheduler.add_job(send_surah, "interval", minutes=config["send_interval_minutes"])
     scheduler.start()
 
-    app.run_polling()
+    await app.run_polling()
+
+if __name__ == "__main__":
+    asyncio.run(main())
