@@ -1,6 +1,7 @@
 import logging
 import asyncio
 import json
+import os
 from telegram import Bot, InputFile
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -11,7 +12,7 @@ import aiohttp
 with open("bot_config.json", encoding="utf-8") as f:
     config = json.load(f)
 
-TOKEN = "7778433338:AAH2O3DH0ZfonJ2mKeBXYSOtbjutBWvWlVQ"
+TOKEN = os.getenv("TOKEN")  # ✅ يسحب التوكن من البيئة
 CHANNEL_ID = config["channel_username"]
 CAPTION_TEMPLATE = config["caption_template"]
 
