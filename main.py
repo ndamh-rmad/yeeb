@@ -2,7 +2,7 @@ import logging
 import asyncio
 import json
 import os
-from telegram import Bot, InputFile
+from telegram import Bot
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import datetime
@@ -12,7 +12,7 @@ import aiohttp
 with open("bot_config.json", encoding="utf-8") as f:
     config = json.load(f)
 
-TOKEN = os.getenv("TOKEN")  # ✅ يسحب التوكن من البيئة
+TOKEN = os.getenv("TOKEN")  # يسحب التوكن من Environment Variables
 CHANNEL_ID = config["channel_username"]
 CAPTION_TEMPLATE = config["caption_template"]
 
@@ -66,7 +66,9 @@ async def send_now(update, context):
     await update.message.reply_text("✅ تم إرسال السورة الآن إلى القناة.")
 
 async def stats(update, context):
-    await update.message.reply_text(f"📊 عدد السور المرسلة: {sent_count}\n📖 آخر سورة: {SURAHS[current_index-1]}\n⏱️ الوقت: {datetime.datetime.now().strftime('%H:%M:%S')}")
+    await update.message.reply_text(
+        f"📊 عدد السور المرسلة: {sent_count}\n📖 آخر سورة: {SURAHS[current_index-1]}\n⏱️ الوقت: {datetime.datetime.now().strftime('%H:%M:%S')}"
+    )
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
