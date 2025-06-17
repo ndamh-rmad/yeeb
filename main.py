@@ -1,21 +1,21 @@
 import logging
+import asyncio
 import json
-import os
-from telegram import Bot
-from telegram.ext import ApplicationBuilder, CommandHandler
+from telegram import Bot, InputFile
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import datetime
 import aiohttp
-import asyncio
 
 with open("bot_config.json", encoding="utf-8") as f:
     config = json.load(f)
 
-TOKEN = os.getenv("TOKEN")
+TOKEN = "ضع_توكن_البوت_هنا"
 CHANNEL_ID = config["channel_username"]
 CAPTION_TEMPLATE = config["caption_template"]
 
-SURAHS = [ "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
+SURAHS = [
+    "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
     "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
     "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
     "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر",
@@ -63,11 +63,9 @@ async def send_now(update, context):
     await update.message.reply_text("✅ تم إرسال السورة الآن إلى القناة.")
 
 async def stats(update, context):
-    await update.message.reply_text(
-        f"📊 عدد السور المرسلة: {sent_count}\\n📖 آخر سورة: {SURAHS[current_index-1]}\\n⏱️ الوقت: {datetime.datetime.now().strftime('%H:%M:%S')}"
-    )
+    await update.message.reply_text(f"📊 عدد السور المرسلة: {sent_count}\n📖 آخر سورة: {SURAHS[current_index-1]}\n⏱️ الوقت: {datetime.datetime.now().strftime('%H:%M:%S')}")
 
-async def start_bot():
+async def main():
     logging.basicConfig(level=logging.INFO)
     app = ApplicationBuilder().token(TOKEN).build()
 
@@ -78,10 +76,7 @@ async def start_bot():
     scheduler.add_job(send_surah, "interval", minutes=config["send_interval_minutes"])
     scheduler.start()
 
-    await app.initialize()
-    await app.start()
-    await app.updater.start_polling()
-    await app.updater.idle()
+    await app.run_polling()
 
 if __name__ == "__main__":
-    asyncio.run(start_bot())
+    asyncio.run(main())
