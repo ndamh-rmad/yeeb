@@ -11,7 +11,7 @@ import aiohttp
 with open("bot_config.json", encoding="utf-8") as f:
     config = json.load(f)
 
-TOKEN = "PUT-YOUR-BOT-TOKEN-HERE"
+TOKEN = "7778433338:AAH2O3DH0ZfonJ2mKeBXYSOtbjutBWvWlVQ"
 CHANNEL_ID = config["channel_username"]
 CAPTION_TEMPLATE = config["caption_template"]
 
