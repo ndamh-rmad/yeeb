@@ -12,7 +12,7 @@ import aiohttp
 with open("bot_config.json", encoding="utf-8") as f:
     config = json.load(f)
 
-TOKEN = os.getenv("TOKEN")  # يسحب التوكن من Environment Variables
+TOKEN = os.getenv("TOKEN")
 CHANNEL_ID = config["channel_username"]
 CAPTION_TEMPLATE = config["caption_template"]
 
@@ -74,8 +74,8 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     app = ApplicationBuilder().token(TOKEN).build()
 
-    app.add_handler(CommandHandler("ارسل_الان", send_now))
-    app.add_handler(CommandHandler("احصائيات", stats))
+    app.add_handler(CommandHandler("send_now", send_now))
+    app.add_handler(CommandHandler("stats", stats))
 
     scheduler = AsyncIOScheduler()
     scheduler.add_job(send_surah, "interval", minutes=config["send_interval_minutes"])
