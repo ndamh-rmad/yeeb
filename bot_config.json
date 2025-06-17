@@ -1,0 +1,13 @@
+{
+    "bot_name": "yeeebbot",
+    "channel_username": "@dzmmm",
+    "qari_name": "السديس",
+    "send_interval_minutes": 5,
+    "caption_template": "سورة {surah_name} – القارئ: السديس",
+    "image_source": "https://raw.githubusercontent.com/GovarJabbar/Quran-PNG/main/{surah_number}.png",
+    "audio_source_pattern": "https://verses.quran.com/AbdulrahmanAlSudais/mp3/{surah_number:03d}.mp3",
+    "commands": [
+        "/ارسل_الان",
+        "/احصائيات"
+    ]
+}
